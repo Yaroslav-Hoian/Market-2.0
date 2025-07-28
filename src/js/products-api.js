@@ -45,3 +45,17 @@ export async function getProductsListId(id) {
     throw new Error('Something went wrong!');
   }
 }
+
+export async function getProductsBySearch(value, currentPage = 1) {
+  try {
+    const response = await axios.get(
+      `https://dummyjson.com/products/search?q=${value}&limit=12&skip=${
+        (currentPage - 1) * 12
+      }`
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error.message);
+    throw new Error('Something went wrong!');
+  }
+}

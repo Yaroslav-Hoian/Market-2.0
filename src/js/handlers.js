@@ -1,7 +1,10 @@
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 import {
   getProductsListByCategory,
   getProductsList,
   getProductsListId,
+  getProductsBySearch,
 } from './products-api';
 import refs from './refs';
 import {
@@ -44,4 +47,32 @@ export async function handleClickProducts(ev) {
 
 export function handleCloseModal() {
   clearModal();
+}
+
+export async function handleSubmit(event) {
+  event.preventDefault();
+
+  const searchProduct = event.target.searchValue.value.trim();
+
+  if (searchProduct === '') {
+    return iziToast.info({
+      title: 'Please write your product',
+      position: 'topLeft',
+    });
+  }
+
+  const searchProductList = await getProductsBySearch(searchProduct);
+  clearList();
+
+  if (searchProductList.products.length === 0) {
+    return refs.divNotFound.classList.add('not-found--visible');
+  } else renderProducts(searchProductList.products);
+}
+
+export async function formClear() {
+  refs.searchForm.reset();
+  refs.productsList.innerHTML = '';
+
+  const response = await getProductsList();
+  renderProducts(response.products);
 }

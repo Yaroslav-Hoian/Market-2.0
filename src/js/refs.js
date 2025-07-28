@@ -5,4 +5,6 @@ export default {
   divModal: document.querySelector('.modal-product'),
   modal: document.querySelector('.modal'),
   modalCloseBtn: document.querySelector('.modal__close-btn'),
+  searchForm: document.querySelector('.search-form'),
+  formBtnClear: document.querySelector('.search-form__btn-clear'),
 };

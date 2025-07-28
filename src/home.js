@@ -3,6 +3,8 @@ import {
   handleClickCategories,
   handleClickProducts,
   handleCloseModal,
+  handleSubmit,
+  formClear,
 } from './js/handlers';
 import { getCategoriesList, getProductsList } from './js/products-api';
 import refs from './js/refs';
@@ -20,3 +22,7 @@ refs.categotiesList.addEventListener('click', handleClickCategories);
 refs.productsList.addEventListener('click', handleClickProducts);
 
 refs.modalCloseBtn.addEventListener('click', handleCloseModal);
+
+refs.searchForm.addEventListener('submit', handleSubmit);
+
+refs.formBtnClear.addEventListener('click', formClear);
