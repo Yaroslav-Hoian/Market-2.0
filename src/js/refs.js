@@ -9,4 +9,6 @@ export default {
   formBtnClear: document.querySelector('.search-form__btn-clear'),
   addCartBtn: document.querySelector('.modal-product__btn--cart'),
   cartCount: document.querySelector('[data-cart-count]'),
+  addWishListBtn: document.querySelector('.modal-product__btn--wishlist'),
+  wishListCount: document.querySelector('[data-wishlist-count]'),
 };
