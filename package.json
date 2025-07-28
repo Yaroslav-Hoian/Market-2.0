@@ -1,11 +1,11 @@
 {
-  "name": "blended_products",
+  "name": "Market-2.0",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/blended_products/",
+    "build": "vite build --base=/Market-2.0/",
     "preview": "vite preview"
   },
   "devDependencies": {
