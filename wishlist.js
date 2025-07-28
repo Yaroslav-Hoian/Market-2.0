@@ -1,0 +1,2 @@
+import"./assets/styles-B-BVPyWf.js";import{i as e,a as d,s as n,b as r,g as o,r as s,h as c,c as l,d as h,e as L,f as m,j as u}from"./assets/handlers-CFJkzAPY.js";import"./assets/vendor-4yCzdkXl.js";e();d();n();r();let C=o();async function g(){const t=C.map(i=>m(i)),a=await Promise.all(t);u(a)}g();s.productsList.addEventListener("click",c);s.modalCloseBtn.addEventListener("click",l);s.addCartBtn.addEventListener("click",h);s.addWishListBtn.addEventListener("click",L);
+//# sourceMappingURL=wishlist.js.map
