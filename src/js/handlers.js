@@ -13,6 +13,7 @@ import {
   renderProductsModal,
   clearModal,
 } from './render-function';
+import { saveCartToStorage, getCart } from './storage';
 
 export async function handleClickCategories(event) {
   if (event.target.classList.contains('categories__btn')) {
@@ -36,12 +37,19 @@ export async function handleClickCategories(event) {
   }
 }
 
+let id = null;
+
 export async function handleClickProducts(ev) {
   const li = ev.target.closest('li');
   if (li) {
     const productModal = await getProductsListId(li.dataset.id);
     renderProductsModal(productModal);
     refs.modal.classList.add('modal--is-open');
+    id = li.dataset.id;
+    let arr = getCart();
+    if (!arr.includes(id) || arr.length === 0) {
+      ev.target.textContent = 'Remove from cart';
+    }
   }
 }
 
@@ -75,4 +83,12 @@ export async function formClear() {
 
   const response = await getProductsList();
   renderProducts(response.products);
+}
+
+export function hadnleAddCart(ev) {
+  let arr = getCart();
+  if (!arr.includes(id) || arr.length === 0) {
+    saveCartToStorage(id);
+    ev.target.textContent = 'Remove from cart';
+  }
 }
