@@ -1,6 +1,15 @@
-import { getProductsListByCategory, getProductsList } from './products-api';
+import {
+  getProductsListByCategory,
+  getProductsList,
+  getProductsListId,
+} from './products-api';
 import refs from './refs';
-import { clearList, renderProducts } from './render-function';
+import {
+  clearList,
+  renderProducts,
+  renderProductsModal,
+  clearModal,
+} from './render-function';
 
 export async function handleClickCategories(event) {
   if (event.target.classList.contains('categories__btn')) {
@@ -22,4 +31,17 @@ export async function handleClickCategories(event) {
       refs.divNotFound.classList.add('not-found--visible');
     }
   }
+}
+
+export async function handleClickProducts(ev) {
+  const li = ev.target.closest('li');
+  if (li) {
+    const productModal = await getProductsListId(li.dataset.id);
+    renderProductsModal(productModal);
+    refs.modal.classList.add('modal--is-open');
+  }
+}
+
+export function handleCloseModal() {
+  clearModal();
 }

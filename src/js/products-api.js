@@ -35,3 +35,13 @@ export async function getProductsListByCategory(category, currentPage = 1) {
     throw new Error('Something went wrong!');
   }
 }
+
+export async function getProductsListId(id) {
+  try {
+    const response = await axios.get(`https://dummyjson.com/products/${id}`);
+    return response.data;
+  } catch (error) {
+    console.log(error.message);
+    throw new Error('Something went wrong!');
+  }
+}

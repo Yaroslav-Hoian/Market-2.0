@@ -36,3 +36,31 @@ export function clearList() {
   refs.divNotFound.classList.remove('not-found--visible');
   refs.productsList.innerHTML = '';
 }
+
+export function renderProductsModal({
+  title,
+  thumbnail,
+  shippingInformation,
+  category,
+  price,
+  description,
+  returnPolicy,
+}) {
+  const markup = `
+    <img class="modal-product__img" src="${thumbnail}" alt="${title}" />
+      <div class="modal-product__content">
+        <p class="modal-product__title">${title}</p>
+        <ul class="modal-product__tags">${category}</ul>
+        <p class="modal-product__description">${description}</p>
+        <p class="modal-product__shipping-information">Shipping:${shippingInformation}</p>
+        <p class="modal-product__return-policy">Return Policy:${returnPolicy}</p>
+        <p class="modal-product__price">Price:${price} $</p>
+        <button class="modal-product__buy-btn" type="button">Buy</button>
+      </div>`;
+  refs.divModal.insertAdjacentHTML('beforeend', markup);
+}
+
+export function clearModal() {
+  refs.modal.classList.remove('modal--is-open');
+  refs.divModal.innerHTML = '';
+}
