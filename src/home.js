@@ -6,15 +6,18 @@ import {
   handleSubmit,
   formClear,
   hadnleAddCart,
+  hadnleAddWishlist,
 } from './js/handlers';
-import { sumCountCarts } from './js/helpers';
+import { sumCountCarts, sumCountWishList } from './js/helpers';
 import { getCategoriesList, getProductsList } from './js/products-api';
 import refs from './js/refs';
 import { renderCategories, renderProducts } from './js/render-function';
-import { initStorage } from './js/storage';
+import { initStorage, initStorageWishList } from './js/storage';
 
 initStorage();
+initStorageWishList();
 sumCountCarts();
+sumCountWishList();
 
 async function homePage() {
   renderCategories(await getCategoriesList());
@@ -35,3 +38,5 @@ refs.searchForm.addEventListener('submit', handleSubmit);
 refs.formBtnClear.addEventListener('click', formClear);
 
 refs.addCartBtn.addEventListener('click', hadnleAddCart);
+
+refs.addWishListBtn.addEventListener('click', hadnleAddWishlist);

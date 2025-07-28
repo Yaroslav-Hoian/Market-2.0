@@ -13,9 +13,16 @@ import {
   renderProductsModal,
   clearModal,
 } from './render-function';
-import { saveCartToStorage, getCart, deleteCartFromStorage } from './storage';
-import { inspectAddBtnToCart } from './modal';
-import { sumCountCarts } from './helpers';
+import {
+  saveCartToStorage,
+  getCart,
+  deleteCartFromStorage,
+  getWishList,
+  saveWishListToStorage,
+  deleteWishlistFromStorage,
+} from './storage';
+import { inspectAddBtnToCart, inspectAddBtnToWishList } from './modal';
+import { sumCountCarts, sumCountWishList } from './helpers';
 
 export async function handleClickCategories(event) {
   if (event.target.classList.contains('categories__btn')) {
@@ -50,6 +57,7 @@ export async function handleClickProducts(ev) {
     id = li.dataset.id;
 
     inspectAddBtnToCart(id);
+    inspectAddBtnToWishList(id);
   }
 }
 
@@ -85,13 +93,22 @@ export async function formClear() {
   renderProducts(response.products);
 }
 
-export function hadnleAddCart(ev) {
+export function hadnleAddCart() {
   let arr = getCart();
   if (!arr.includes(id) || arr.length === 0) {
     saveCartToStorage(id);
-    inspectAddBtnToCart(id);
-    sumCountCarts();
   } else deleteCartFromStorage(id);
+
   inspectAddBtnToCart(id);
   sumCountCarts();
+}
+
+export function hadnleAddWishlist() {
+  let arrWishList = getWishList();
+  if (!arrWishList.includes(id) || arrWishList.length === 0) {
+    saveWishListToStorage(id);
+  } else deleteWishlistFromStorage(id);
+
+  inspectAddBtnToWishList(id);
+  sumCountWishList();
 }
