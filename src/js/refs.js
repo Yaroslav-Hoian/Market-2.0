@@ -8,4 +8,5 @@ export default {
   searchForm: document.querySelector('.search-form'),
   formBtnClear: document.querySelector('.search-form__btn-clear'),
   addCartBtn: document.querySelector('.modal-product__btn--cart'),
+  cartCount: document.querySelector('[data-cart-count]'),
 };

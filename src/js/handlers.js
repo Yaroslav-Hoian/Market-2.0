@@ -13,7 +13,9 @@ import {
   renderProductsModal,
   clearModal,
 } from './render-function';
-import { saveCartToStorage, getCart } from './storage';
+import { saveCartToStorage, getCart, deleteCartFromStorage } from './storage';
+import { inspectAddBtnToCart } from './modal';
+import { sumCountCarts } from './helpers';
 
 export async function handleClickCategories(event) {
   if (event.target.classList.contains('categories__btn')) {
@@ -46,10 +48,8 @@ export async function handleClickProducts(ev) {
     renderProductsModal(productModal);
     refs.modal.classList.add('modal--is-open');
     id = li.dataset.id;
-    let arr = getCart();
-    if (!arr.includes(id) || arr.length === 0) {
-      ev.target.textContent = 'Remove from cart';
-    }
+
+    inspectAddBtnToCart(id);
   }
 }
 
@@ -89,6 +89,9 @@ export function hadnleAddCart(ev) {
   let arr = getCart();
   if (!arr.includes(id) || arr.length === 0) {
     saveCartToStorage(id);
-    ev.target.textContent = 'Remove from cart';
-  }
+    inspectAddBtnToCart(id);
+    sumCountCarts();
+  } else deleteCartFromStorage(id);
+  inspectAddBtnToCart(id);
+  sumCountCarts();
 }

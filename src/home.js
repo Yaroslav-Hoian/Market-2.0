@@ -7,16 +7,21 @@ import {
   formClear,
   hadnleAddCart,
 } from './js/handlers';
+import { sumCountCarts } from './js/helpers';
 import { getCategoriesList, getProductsList } from './js/products-api';
 import refs from './js/refs';
 import { renderCategories, renderProducts } from './js/render-function';
 import { initStorage } from './js/storage';
+
 initStorage();
+sumCountCarts();
+
 async function homePage() {
   renderCategories(await getCategoriesList());
   const response = await getProductsList();
   renderProducts(response.products);
 }
+
 homePage();
 
 refs.categotiesList.addEventListener('click', handleClickCategories);
