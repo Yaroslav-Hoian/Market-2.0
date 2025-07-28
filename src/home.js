@@ -5,11 +5,13 @@ import {
   handleCloseModal,
   handleSubmit,
   formClear,
+  hadnleAddCart,
 } from './js/handlers';
 import { getCategoriesList, getProductsList } from './js/products-api';
 import refs from './js/refs';
 import { renderCategories, renderProducts } from './js/render-function';
-
+import { initStorage } from './js/storage';
+initStorage();
 async function homePage() {
   renderCategories(await getCategoriesList());
   const response = await getProductsList();
@@ -26,3 +28,5 @@ refs.modalCloseBtn.addEventListener('click', handleCloseModal);
 refs.searchForm.addEventListener('submit', handleSubmit);
 
 refs.formBtnClear.addEventListener('click', formClear);
+
+refs.addCartBtn.addEventListener('click', hadnleAddCart);
