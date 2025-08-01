@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { showLoader } from './helpers';
 
 export async function getCategoriesList() {
   try {
@@ -16,6 +15,7 @@ export async function getProductsList(currentPage = 1) {
     const response = await axios.get(
       `https://dummyjson.com/products?limit=12&skip=${(currentPage - 1) * 12}`
     );
+
     return response.data;
   } catch (error) {
     console.log(error.message);
