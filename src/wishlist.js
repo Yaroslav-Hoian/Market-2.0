@@ -5,6 +5,8 @@ import {
   hadnleAddProductAtWishlist,
   handleClickProducts,
   handleCloseModal,
+  scrollToTop,
+  showsBtnAfterScroll,
 } from './js/handlers';
 import { setThemeOnPage, sumCountCarts, sumCountWishList } from './js/helpers';
 import refs from './js/refs';
@@ -35,3 +37,7 @@ refs.addCartBtn.addEventListener('click', hadnleAddCart);
 refs.addWishListBtn.addEventListener('click', hadnleAddProductAtWishlist);
 
 refs.changeThemeBtn.addEventListener('click', changeTheme);
+
+refs.scroll.addEventListener('click', scrollToTop);
+
+window.addEventListener('scroll', showsBtnAfterScroll);

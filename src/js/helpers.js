@@ -38,3 +38,15 @@ export function showLoadMoreBtn() {
 export function hideLoadMoreBtn() {
   refs.btnLoadMore.classList.add('is-hidden');
 }
+
+export function isActiveClassAtCategories(param) {
+  deleteIsActiveClass();
+  param.classList.add('categories__btn--active');
+}
+
+export function deleteIsActiveClass() {
+  const allBtn = refs.categotiesList.querySelectorAll('.categories__btn');
+  allBtn.forEach(item => {
+    item.classList.remove('categories__btn--active');
+  });
+}

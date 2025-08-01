@@ -9,6 +9,9 @@ import {
   hadnleAddWishlist,
   changeTheme,
   handleBtnLoadMore,
+  scrollToTop,
+  obj,
+  showsBtnAfterScroll,
 } from './js/handlers';
 import {
   setThemeOnPage,
@@ -32,10 +35,6 @@ initStorage();
 initStorageWishList();
 sumCountCarts();
 sumCountWishList();
-export let obj = {
-  totalPages: 0,
-  perPage: 12,
-};
 
 async function homePage() {
   renderCategories(await getCategoriesList());
@@ -66,3 +65,7 @@ refs.addWishListBtn.addEventListener('click', hadnleAddWishlist);
 refs.changeThemeBtn.addEventListener('click', changeTheme);
 
 refs.btnLoadMore.addEventListener('click', handleBtnLoadMore);
+
+refs.scroll.addEventListener('click', scrollToTop);
+
+window.addEventListener('scroll', showsBtnAfterScroll);

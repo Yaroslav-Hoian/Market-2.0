@@ -6,6 +6,8 @@ import {
   handleBuyProduct,
   handleClickProducts,
   handleCloseModal,
+  scrollToTop,
+  showsBtnAfterScroll,
 } from './js/handlers';
 import {
   setThemeOnPage,
@@ -45,3 +47,7 @@ refs.addWishListBtn.addEventListener('click', hadnleAddWishlist);
 refs.buyProductBtn.addEventListener('click', handleBuyProduct);
 
 refs.changeThemeBtn.addEventListener('click', changeTheme);
+
+refs.scroll.addEventListener('click', scrollToTop);
+
+window.addEventListener('scroll', showsBtnAfterScroll);

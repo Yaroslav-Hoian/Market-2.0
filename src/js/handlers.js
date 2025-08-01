@@ -28,30 +28,35 @@ import {
 } from './storage';
 import { inspectAddBtnToCart, inspectAddBtnToWishList } from './modal';
 import {
+  deleteIsActiveClass,
   hideLoader,
   hideLoadMoreBtn,
+  isActiveClassAtCategories,
   showLoader,
   showLoadMoreBtn,
   sumCountCarts,
   sumCountWishList,
   sumItemToBuy,
 } from './helpers';
-import { obj } from '../home';
-let currentPage = 1;
+import { hideScroll, showScroll } from './scroll';
 
+export let obj = {
+  totalPages: 0,
+  perPage: 12,
+};
+
+let currentPage = 1;
 let currentCategory = '';
 
 export async function handleClickCategories(event) {
+  refs.searchForm.reset();
+  currentPage = 1;
   hideLoadMoreBtn();
   if (event.target.classList.contains('categories__btn')) {
     showLoader();
     clearList();
     const currentBtn = event.target;
-    const allBtn = refs.categotiesList.querySelectorAll('.categories__btn');
-    allBtn.forEach(item => {
-      item.classList.remove('categories__btn--active');
-    });
-    currentBtn.classList.add('categories__btn--active');
+    isActiveClassAtCategories(currentBtn);
     const category = currentBtn.textContent;
     const products =
       category === 'All'
@@ -59,10 +64,8 @@ export async function handleClickCategories(event) {
         : await getProductsListByCategory(category);
     hideLoader();
     obj.totalPages = Math.ceil(products.total / obj.perPage);
-    console.log(obj.totalPages);
 
     currentCategory = category;
-    console.log(currentCategory);
 
     if (currentPage >= obj.totalPages) {
       hideLoadMoreBtn();
@@ -96,6 +99,8 @@ export function handleCloseModal() {
 }
 
 export async function handleSubmit(event) {
+  deleteIsActiveClass();
+  currentPage = 1;
   event.preventDefault();
 
   const searchProduct = event.target.searchValue.value.trim();
@@ -109,11 +114,17 @@ export async function handleSubmit(event) {
   showLoader();
   clearList();
   const searchProductList = await getProductsBySearch(searchProduct);
+  obj.totalPages = Math.ceil(searchProductList.total / obj.perPage);
 
   hideLoader();
   if (searchProductList.products.length === 0) {
     return refs.divNotFound.classList.add('not-found--visible');
-  } else renderProducts(searchProductList.products);
+  }
+  renderProducts(searchProductList.products);
+
+  if (currentPage >= obj.totalPages) {
+    hideLoadMoreBtn();
+  } else showLoadMoreBtn();
 }
 
 export async function formClear() {
@@ -190,9 +201,11 @@ export function changeTheme() {
 
 export async function handleBtnLoadMore() {
   currentPage++;
+
   if (currentPage >= obj.totalPages) {
     iziToast.info({
-      title: 'LALA',
+      title: "We're sorry, but you've reached the end of search results.",
+      position: 'topRight',
     });
     hideLoadMoreBtn();
   }
@@ -206,4 +219,17 @@ export async function handleBtnLoadMore() {
     );
     renderProducts(categoryProduct.products);
   }
+}
+
+export function showsBtnAfterScroll() {
+  if (window.scrollY > 1200) {
+    showScroll();
+  } else hideScroll();
+}
+
+export function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
 }
