@@ -16,4 +16,5 @@ export default {
   buyProductBtn: document.querySelector('.cart-summary__btn'),
   changeThemeBtn: document.querySelector('.theme-toggle-btn'),
   body: document.querySelector('body'),
+  loaderBox: document.querySelector('.is-hidden'),
 };
