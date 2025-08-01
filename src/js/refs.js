@@ -11,4 +11,9 @@ export default {
   cartCount: document.querySelector('[data-cart-count]'),
   addWishListBtn: document.querySelector('.modal-product__btn--wishlist'),
   wishListCount: document.querySelector('[data-wishlist-count]'),
+  itemsListCount: document.querySelector('[data-count]'),
+  priceCartCount: document.querySelector('[data-price]'),
+  btnBuyProduct: document.querySelector('.cart-summary__btn'),
+  changeTheme: document.querySelector('.theme-toggle-btn'),
+  body: document.querySelector('body'),
 };

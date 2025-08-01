@@ -1,28 +1,21 @@
 //Логіка сторінки Wishlist
 import {
-  hadnleAddCart,
-  hadnleAddWishlist,
+  handleAddCart,
+  handleAddPdouctAtWishlist,
+  handleChangeTheme,
   handleClickProducts,
   handleCloseModal,
 } from './js/handlers';
-import { sumCountCarts, sumCountWishList } from './js/helpers';
-import { getProductsListId } from './js/products-api';
+import { setThemeOnPage, sumCountCarts, sumCountWishList } from './js/helpers';
 import refs from './js/refs';
-import { renderProducts } from './js/render-function';
-import { getWishList, initStorage, initStorageWishList } from './js/storage';
+import { wishlistPage } from './js/render-function';
+import { initStorage, initStorageWishList } from './js/storage';
 
 initStorage();
 initStorageWishList();
 sumCountCarts();
 sumCountWishList();
-
-let data = getWishList();
-
-async function wishlistPage() {
-  const arrData = data.map(el => getProductsListId(el));
-  const response = await Promise.all(arrData);
-  renderProducts(response);
-}
+setThemeOnPage();
 
 wishlistPage();
 
@@ -30,6 +23,8 @@ refs.productsList.addEventListener('click', handleClickProducts);
 
 refs.modalCloseBtn.addEventListener('click', handleCloseModal);
 
-refs.addCartBtn.addEventListener('click', hadnleAddCart);
+refs.addCartBtn.addEventListener('click', handleAddCart);
 
-refs.addWishListBtn.addEventListener('click', hadnleAddWishlist);
+refs.addWishListBtn.addEventListener('click', handleAddPdouctAtWishlist);
+
+refs.changeTheme.addEventListener('click', handleChangeTheme);

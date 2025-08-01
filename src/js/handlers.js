@@ -12,6 +12,8 @@ import {
   renderProducts,
   renderProductsModal,
   clearModal,
+  wishlistPage,
+  cartPage,
 } from './render-function';
 import {
   saveCartToStorage,
@@ -20,9 +22,11 @@ import {
   getWishList,
   saveWishListToStorage,
   deleteWishlistFromStorage,
+  clearLocalStorage,
+  saveThemeToStorage,
 } from './storage';
 import { inspectAddBtnToCart, inspectAddBtnToWishList } from './modal';
-import { sumCountCarts, sumCountWishList } from './helpers';
+import { sumCountCarts, sumCountItemCarts, sumCountWishList } from './helpers';
 
 export async function handleClickCategories(event) {
   if (event.target.classList.contains('categories__btn')) {
@@ -93,7 +97,7 @@ export async function formClear() {
   renderProducts(response.products);
 }
 
-export function hadnleAddCart() {
+export function handleAddCart() {
   let arr = getCart();
   if (!arr.includes(id) || arr.length === 0) {
     saveCartToStorage(id);
@@ -103,7 +107,7 @@ export function hadnleAddCart() {
   sumCountCarts();
 }
 
-export function hadnleAddWishlist() {
+export function handleAddWishlist() {
   let arrWishList = getWishList();
   if (!arrWishList.includes(id) || arrWishList.length === 0) {
     saveWishListToStorage(id);
@@ -111,4 +115,46 @@ export function hadnleAddWishlist() {
 
   inspectAddBtnToWishList(id);
   sumCountWishList();
+}
+
+export function handleAddPdouctAtWishlist() {
+  handleAddWishlist();
+  refs.productsList.innerHTML = '';
+  wishlistPage();
+}
+
+export function handleAddProductAtCart() {
+  handleAddCart();
+  refs.productsList.innerHTML = '';
+  cartPage();
+  sumCountItemCarts();
+}
+
+export function handleBuyProduct() {
+  let getLocalStorageCart = getCart();
+  if (getLocalStorageCart.length === 0) {
+    return iziToast.info({
+      title: 'Please change product',
+      position: 'topRight',
+    });
+  }
+  refs.productsList.innerHTML = '';
+  clearLocalStorage();
+  sumCountItemCarts();
+  sumCountCarts();
+  cartPage();
+  iziToast.success({
+    title: 'Great purchase',
+    position: 'topRight',
+  });
+}
+
+export function handleChangeTheme() {
+  if (!refs.body.hasAttribute('data-theme')) {
+    refs.body.setAttribute('data-theme', 'dark');
+    saveThemeToStorage('dark');
+  } else {
+    refs.body.removeAttribute('data-theme');
+    saveThemeToStorage('');
+  }
 }
