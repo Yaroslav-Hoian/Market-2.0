@@ -12,6 +12,9 @@ import {
   renderProducts,
   renderProductsModal,
   clearModal,
+  clearProductsAtList,
+  cartPage,
+  wishlistPage,
 } from './render-function';
 import {
   saveCartToStorage,
@@ -20,9 +23,11 @@ import {
   getWishList,
   saveWishListToStorage,
   deleteWishlistFromStorage,
+  setThemeToStorage,
+  resetCartAfterBuy,
 } from './storage';
 import { inspectAddBtnToCart, inspectAddBtnToWishList } from './modal';
-import { sumCountCarts, sumCountWishList } from './helpers';
+import { sumCountCarts, sumCountWishList, sumItemToBuy } from './helpers';
 
 export async function handleClickCategories(event) {
   if (event.target.classList.contains('categories__btn')) {
@@ -103,6 +108,14 @@ export function hadnleAddCart() {
   sumCountCarts();
 }
 
+export function hadnleAddProductAtCart() {
+  hadnleAddCart();
+
+  clearProductsAtList();
+  sumItemToBuy();
+  cartPage();
+}
+
 export function hadnleAddWishlist() {
   let arrWishList = getWishList();
   if (!arrWishList.includes(id) || arrWishList.length === 0) {
@@ -111,4 +124,39 @@ export function hadnleAddWishlist() {
 
   inspectAddBtnToWishList(id);
   sumCountWishList();
+}
+
+export function hadnleAddProductAtWishlist() {
+  hadnleAddWishlist();
+  clearProductsAtList();
+  wishlistPage();
+}
+
+export function handleBuyProduct() {
+  let arr = getCart();
+  let items = arr.length;
+  if (items <= 0) {
+    return iziToast.info({
+      title: 'Select your product to buy',
+    });
+  } else {
+    clearProductsAtList();
+    resetCartAfterBuy();
+    sumCountCarts();
+    sumItemToBuy();
+    cartPage();
+    iziToast.success({
+      title: 'Congratulations on your purchase.',
+    });
+  }
+}
+
+export function changeTheme() {
+  if (!refs.body.hasAttribute('data-theme')) {
+    setThemeToStorage('dark');
+    return refs.body.setAttribute('data-theme', 'dark');
+  } else {
+    setThemeToStorage('');
+    return refs.body.removeAttribute('data-theme');
+  }
 }

@@ -22,6 +22,11 @@ export function deleteCartFromStorage(id) {
   localStorage.setItem(localKey, JSON.stringify(filterArrCarts));
 }
 
+export function resetCartAfterBuy() {
+  const arr = [];
+  localStorage.setItem(localKey, JSON.stringify(arr));
+}
+
 const localKeyWishList = 'wishlist';
 
 export function getWishList() {
@@ -44,4 +49,20 @@ export function deleteWishlistFromStorage(id) {
   const arrWishList = getWishList();
   const filterArrWishList = arrWishList.filter(el => el !== id);
   localStorage.setItem(localKeyWishList, JSON.stringify(filterArrWishList));
+}
+
+const localKeyTheme = 'theme';
+
+export function getThemeFromStorage() {
+  const currentTheme = JSON.parse(localStorage.getItem(localKeyTheme));
+  return currentTheme;
+}
+
+export function initStorageTheme() {
+  const data = getThemeFromStorage() ?? '';
+  localStorage.setItem(localKeyTheme, JSON.stringify(data));
+}
+
+export function setThemeToStorage(theme) {
+  localStorage.setItem(localKeyTheme, JSON.stringify(theme));
 }

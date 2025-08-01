@@ -1,4 +1,6 @@
+import { getProductsListId } from './products-api';
 import refs from './refs';
+import { getCart, getWishList } from './storage';
 
 export function renderCategories(data) {
   const markup = ['All', ...data]
@@ -63,4 +65,25 @@ export function renderProductsModal({
 export function clearModal() {
   refs.modal.classList.remove('modal--is-open');
   refs.divModal.innerHTML = '';
+}
+
+export function clearProductsAtList() {
+  refs.productsList.innerHTML = '';
+}
+
+export async function cartPage() {
+  let data = getCart();
+  const arrData = data.map(el => getProductsListId(el));
+  const response = await Promise.all(arrData);
+  renderProducts(response);
+
+  const sumPrice = response.reduce((acc, el) => acc + el.price, 0);
+  refs.dataPrice.textContent = `$ ${sumPrice.toFixed(2)}`;
+}
+
+export async function wishlistPage() {
+  let data = getWishList();
+  const arrData = data.map(el => getProductsListId(el));
+  const response = await Promise.all(arrData);
+  renderProducts(response);
 }

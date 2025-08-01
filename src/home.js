@@ -7,12 +7,20 @@ import {
   formClear,
   hadnleAddCart,
   hadnleAddWishlist,
+  changeTheme,
 } from './js/handlers';
-import { sumCountCarts, sumCountWishList } from './js/helpers';
+import { setThemeOnPage, sumCountCarts, sumCountWishList } from './js/helpers';
 import { getCategoriesList, getProductsList } from './js/products-api';
 import refs from './js/refs';
 import { renderCategories, renderProducts } from './js/render-function';
-import { initStorage, initStorageWishList } from './js/storage';
+import {
+  initStorage,
+  initStorageTheme,
+  initStorageWishList,
+} from './js/storage';
+
+initStorageTheme();
+setThemeOnPage();
 
 initStorage();
 initStorageWishList();
@@ -40,3 +48,5 @@ refs.formBtnClear.addEventListener('click', formClear);
 refs.addCartBtn.addEventListener('click', hadnleAddCart);
 
 refs.addWishListBtn.addEventListener('click', hadnleAddWishlist);
+
+refs.changeThemeBtn.addEventListener('click', changeTheme);
