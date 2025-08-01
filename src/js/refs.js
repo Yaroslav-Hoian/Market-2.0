@@ -18,4 +18,5 @@ export default {
   body: document.querySelector('body'),
   loaderBox: document.querySelector('.loader-box'),
   btnLoadMore: document.querySelector('.load-more-btn'),
+  scroll: document.querySelector('.scroll-top-btn'),
 };
