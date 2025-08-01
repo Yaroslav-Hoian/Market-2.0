@@ -8,8 +8,14 @@ import {
   hadnleAddCart,
   hadnleAddWishlist,
   changeTheme,
+  handleBtnLoadMore,
 } from './js/handlers';
-import { setThemeOnPage, sumCountCarts, sumCountWishList } from './js/helpers';
+import {
+  setThemeOnPage,
+  showLoadMoreBtn,
+  sumCountCarts,
+  sumCountWishList,
+} from './js/helpers';
 import { getCategoriesList, getProductsList } from './js/products-api';
 import refs from './js/refs';
 import { renderCategories, renderProducts } from './js/render-function';
@@ -26,11 +32,19 @@ initStorage();
 initStorageWishList();
 sumCountCarts();
 sumCountWishList();
+export let obj = {
+  totalPages: 0,
+  perPage: 12,
+};
 
 async function homePage() {
   renderCategories(await getCategoriesList());
   const response = await getProductsList();
   renderProducts(response.products);
+  obj.totalPages = Math.ceil(response.total / obj.perPage);
+  if (obj.totalPages > 1) {
+    showLoadMoreBtn();
+  }
 }
 
 homePage();
@@ -50,3 +64,5 @@ refs.addCartBtn.addEventListener('click', hadnleAddCart);
 refs.addWishListBtn.addEventListener('click', hadnleAddWishlist);
 
 refs.changeThemeBtn.addEventListener('click', changeTheme);
+
+refs.btnLoadMore.addEventListener('click', handleBtnLoadMore);

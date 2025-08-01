@@ -29,13 +29,20 @@ import {
 import { inspectAddBtnToCart, inspectAddBtnToWishList } from './modal';
 import {
   hideLoader,
+  hideLoadMoreBtn,
   showLoader,
+  showLoadMoreBtn,
   sumCountCarts,
   sumCountWishList,
   sumItemToBuy,
 } from './helpers';
+import { obj } from '../home';
+let currentPage = 1;
+
+let currentCategory = '';
 
 export async function handleClickCategories(event) {
+  hideLoadMoreBtn();
   if (event.target.classList.contains('categories__btn')) {
     showLoader();
     clearList();
@@ -51,6 +58,15 @@ export async function handleClickCategories(event) {
         ? await getProductsList()
         : await getProductsListByCategory(category);
     hideLoader();
+    obj.totalPages = Math.ceil(products.total / obj.perPage);
+    console.log(obj.totalPages);
+
+    currentCategory = category;
+    console.log(currentCategory);
+
+    if (currentPage >= obj.totalPages) {
+      hideLoadMoreBtn();
+    } else showLoadMoreBtn();
 
     if (products.products.length !== 0) {
       renderProducts(products.products);
@@ -169,5 +185,25 @@ export function changeTheme() {
   } else {
     setThemeToStorage('');
     return refs.body.removeAttribute('data-theme');
+  }
+}
+
+export async function handleBtnLoadMore() {
+  currentPage++;
+  if (currentPage >= obj.totalPages) {
+    iziToast.info({
+      title: 'LALA',
+    });
+    hideLoadMoreBtn();
+  }
+  if (currentCategory === 'All' || currentCategory === '') {
+    let nextPage = await getProductsList(currentPage);
+    renderProducts(nextPage.products);
+  } else {
+    let categoryProduct = await getProductsListByCategory(
+      currentCategory,
+      currentPage
+    );
+    renderProducts(categoryProduct.products);
   }
 }

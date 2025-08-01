@@ -30,3 +30,11 @@ export function showLoader() {
 export function hideLoader() {
   refs.loaderBox.classList.add('is-hidden');
 }
+
+export function showLoadMoreBtn() {
+  refs.btnLoadMore.classList.remove('is-hidden');
+}
+
+export function hideLoadMoreBtn() {
+  refs.btnLoadMore.classList.add('is-hidden');
+}
