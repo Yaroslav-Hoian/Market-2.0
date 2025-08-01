@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { showLoader } from './helpers';
 
 export async function getCategoriesList() {
   try {

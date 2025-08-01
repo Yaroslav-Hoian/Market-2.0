@@ -27,10 +27,18 @@ import {
   resetCartAfterBuy,
 } from './storage';
 import { inspectAddBtnToCart, inspectAddBtnToWishList } from './modal';
-import { sumCountCarts, sumCountWishList, sumItemToBuy } from './helpers';
+import {
+  hideLoader,
+  showLoader,
+  sumCountCarts,
+  sumCountWishList,
+  sumItemToBuy,
+} from './helpers';
 
 export async function handleClickCategories(event) {
   if (event.target.classList.contains('categories__btn')) {
+    showLoader();
+    clearList();
     const currentBtn = event.target;
     const allBtn = refs.categotiesList.querySelectorAll('.categories__btn');
     allBtn.forEach(item => {
@@ -42,7 +50,8 @@ export async function handleClickCategories(event) {
       category === 'All'
         ? await getProductsList()
         : await getProductsListByCategory(category);
-    clearList();
+    hideLoader();
+
     if (products.products.length !== 0) {
       renderProducts(products.products);
     } else {
@@ -81,10 +90,11 @@ export async function handleSubmit(event) {
       position: 'topLeft',
     });
   }
-
-  const searchProductList = await getProductsBySearch(searchProduct);
+  showLoader();
   clearList();
+  const searchProductList = await getProductsBySearch(searchProduct);
 
+  hideLoader();
   if (searchProductList.products.length === 0) {
     return refs.divNotFound.classList.add('not-found--visible');
   } else renderProducts(searchProductList.products);
@@ -93,8 +103,9 @@ export async function handleSubmit(event) {
 export async function formClear() {
   refs.searchForm.reset();
   refs.productsList.innerHTML = '';
-
+  showLoader();
   const response = await getProductsList();
+  hideLoader();
   renderProducts(response.products);
 }
 

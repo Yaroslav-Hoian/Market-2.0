@@ -22,3 +22,11 @@ export function setThemeOnPage() {
     refs.body.setAttribute('data-theme', theme);
   }
 }
+
+export function showLoader() {
+  refs.loaderBox.classList.remove('is-hidden');
+}
+
+export function hideLoader() {
+  refs.loaderBox.classList.add('is-hidden');
+}
