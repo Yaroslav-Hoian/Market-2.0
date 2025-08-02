@@ -2,7 +2,7 @@
 import {
   changeTheme,
   hadnleAddCart,
-  hadnleAddProductAtWishlist,
+  hadnleAddWishlist,
   handleClickProducts,
   handleCloseModal,
   scrollToTop,
@@ -34,7 +34,7 @@ refs.modalCloseBtn.addEventListener('click', handleCloseModal);
 
 refs.addCartBtn.addEventListener('click', hadnleAddCart);
 
-refs.addWishListBtn.addEventListener('click', hadnleAddProductAtWishlist);
+refs.addWishListBtn.addEventListener('click', hadnleAddWishlist);
 
 refs.changeThemeBtn.addEventListener('click', changeTheme);
 

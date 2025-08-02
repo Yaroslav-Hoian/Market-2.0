@@ -144,14 +144,12 @@ export function hadnleAddCart() {
 
   inspectAddBtnToCart(id);
   sumCountCarts();
-}
 
-export function hadnleAddProductAtCart() {
-  hadnleAddCart();
-
-  clearProductsAtList();
-  sumItemToBuy();
-  cartPage();
+  if (window.location.pathname.includes('cart.html')) {
+    clearProductsAtList();
+    cartPage();
+    sumItemToBuy();
+  }
 }
 
 export function hadnleAddWishlist() {
@@ -162,12 +160,11 @@ export function hadnleAddWishlist() {
 
   inspectAddBtnToWishList(id);
   sumCountWishList();
-}
 
-export function hadnleAddProductAtWishlist() {
-  hadnleAddWishlist();
-  clearProductsAtList();
-  wishlistPage();
+  if (window.location.pathname.includes('wishlist.html')) {
+    clearProductsAtList();
+    wishlistPage();
+  }
 }
 
 export function handleBuyProduct() {
