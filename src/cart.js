@@ -1,7 +1,7 @@
 //Логіка сторінки Cart
 import {
   changeTheme,
-  hadnleAddProductAtCart,
+  hadnleAddCart,
   hadnleAddWishlist,
   handleBuyProduct,
   handleClickProducts,
@@ -40,7 +40,7 @@ refs.productsList.addEventListener('click', handleClickProducts);
 
 refs.modalCloseBtn.addEventListener('click', handleCloseModal);
 
-refs.addCartBtn.addEventListener('click', hadnleAddProductAtCart);
+refs.addCartBtn.addEventListener('click', hadnleAddCart);
 
 refs.addWishListBtn.addEventListener('click', hadnleAddWishlist);
 

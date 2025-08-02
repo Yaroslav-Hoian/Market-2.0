@@ -1,4 +1,4 @@
-export default {
+const refs = {
   categotiesList: document.querySelector('.categories'),
   productsList: document.querySelector('.products'),
   divNotFound: document.querySelector('.not-found'),
@@ -20,3 +20,5 @@ export default {
   btnLoadMore: document.querySelector('.load-more-btn'),
   scroll: document.querySelector('.scroll-top-btn'),
 };
+
+export default refs;

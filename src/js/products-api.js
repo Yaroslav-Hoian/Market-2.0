@@ -1,8 +1,13 @@
 import axios from 'axios';
 
+axios.defaults.baseURL = 'https://dummyjson.com/products';
+const searchParams = new URLSearchParams({
+  limit: 12,
+});
+
 export async function getCategoriesList() {
   try {
-    const data = await axios('https://dummyjson.com/products/category-list');
+    const data = await axios.get(`/category-list`);
     return data.data;
   } catch (error) {
     console.log(error.message);
@@ -13,7 +18,7 @@ export async function getCategoriesList() {
 export async function getProductsList(currentPage = 1) {
   try {
     const response = await axios.get(
-      `https://dummyjson.com/products?limit=12&skip=${(currentPage - 1) * 12}`
+      `?${searchParams}&skip=${(currentPage - 1) * 12}`
     );
 
     return response.data;
@@ -26,9 +31,7 @@ export async function getProductsList(currentPage = 1) {
 export async function getProductsListByCategory(category, currentPage = 1) {
   try {
     const response = await axios.get(
-      `https://dummyjson.com/products/category/${category}?limit=12&skip=${
-        (currentPage - 1) * 12
-      }`
+      `/category/${category}?${searchParams}&skip=${(currentPage - 1) * 12}`
     );
     return response.data;
   } catch (error) {
@@ -39,7 +42,7 @@ export async function getProductsListByCategory(category, currentPage = 1) {
 
 export async function getProductsListId(id) {
   try {
-    const response = await axios.get(`https://dummyjson.com/products/${id}`);
+    const response = await axios.get(`/${id}`);
     return response.data;
   } catch (error) {
     console.log(error.message);
@@ -50,9 +53,7 @@ export async function getProductsListId(id) {
 export async function getProductsBySearch(value, currentPage = 1) {
   try {
     const response = await axios.get(
-      `https://dummyjson.com/products/search?q=${value}&limit=12&skip=${
-        (currentPage - 1) * 12
-      }`
+      `/search?q=${value}&${searchParams}&skip=${(currentPage - 1) * 12}`
     );
     return response.data;
   } catch (error) {

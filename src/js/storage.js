@@ -1,4 +1,6 @@
 const localKey = 'cart';
+const localKeyTheme = 'theme';
+const localKeyWishList = 'wishlist';
 
 export function getCart() {
   const data = JSON.parse(localStorage.getItem(localKey));
@@ -27,8 +29,6 @@ export function resetCartAfterBuy() {
   localStorage.setItem(localKey, JSON.stringify(arr));
 }
 
-const localKeyWishList = 'wishlist';
-
 export function getWishList() {
   const data = JSON.parse(localStorage.getItem(localKeyWishList));
   return data;
@@ -50,8 +50,6 @@ export function deleteWishlistFromStorage(id) {
   const filterArrWishList = arrWishList.filter(el => el !== id);
   localStorage.setItem(localKeyWishList, JSON.stringify(filterArrWishList));
 }
-
-const localKeyTheme = 'theme';
 
 export function getThemeFromStorage() {
   const currentTheme = JSON.parse(localStorage.getItem(localKeyTheme));
